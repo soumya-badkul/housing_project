@@ -13,35 +13,33 @@ include '_navbar.php';
 		}
 	}
 </style>
-<div class="container-fluid">
-	<div class="row">
-		<h3 class="ml-4">Resident Payment Intimation</h3><br>
-	</div>
-	<div class="mt-3">
-		<p aria-label="breadcrumb">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item "><a href="admin.php">Homepage</a></li>
-				<li class="breadcrumb-item "><a href="accountingtabs1.php">Accounting</a></li>
-				<li class="breadcrumb-item ">Add Resident Payment Intimation</li>
-			</ol>
-		</p>
-	</div>
+<div class="page-header">
+	<h3 class="page-title ">Add Resident Payment Intimation </h3>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="admin.php">Home</a></li>
+			<li class="breadcrumb-item "><a href="fintabs.php">Finance And Accounting</a></li>
+			<li class="breadcrumb-item ">Add Resident Payment Intimation</li>
+		</ol>
+	</nav>
+</div>
+<div class="card">
+	<div class="card-body">
 
-	<div class="row m-3 ">
-		<div class="form-inline">
-			<div class="form-group">
-				<label for="fltno">Enter Flat / Shop no:</label>
-				<input type="text" class="ml-lg-4 form-control" autofocus id="fltno">
+		<div class="row m-3 ">
+			<div class="form-inline">
+				<div class="form-group">
+					<label for="fltno">Enter Flat / Shop no:</label>
+					<input type="text" autofocus class="ml-lg-4 form-control" autofocus id="fltno">
+				</div>
+				<button type="button" id="fltbtn" class=" ml-4 btn border"><i class="mdi mdi-search-web"></i></button>
 			</div>
-			<button type="button" id="fltbtn" class=" ml-4 btn border"><i class="mdi mdi-search-web"></i></button>
+		</div>
+		<p class="small text-center" id="rep" style="color:red;display:none;">Enter Valid Flat/Shop Number.</p>
+		<hr class="bg-secondary">
+		<div class=" ftdet m-1">
 		</div>
 	</div>
-	<p class="small text-center" id="rep" style="color:red;display:none;">Enter Valid Flat/Shop Number.</p>
-	<hr class="bg-secondary">
-	<div class=" ftdet m-1">
-	</div>
-
-</div>
 </div>
 
 <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -53,7 +51,8 @@ include '_navbar.php';
 
 			</div>
 			<div class="modal-footer d-flex">
-				<a class="w-25 p-2 float-right text-center bg-success text-white proceed" onclick="handlenquarterpay()">Procced</a>
+				<a class="w-25 p-2 float-right text-center bg-success text-white proceed"
+					onclick="handlenquarterpay()">Procced</a>
 				<a class="w-25 p-2 float-right text-center text-success proceed" id="" data-dismiss="modal">Cancel</a>
 			</div>
 		</div>
@@ -68,16 +67,15 @@ include '_navbar.php';
 				<h3 class="text-dark">Intimation Successful</h3>
 			</div>
 			<div class="modal-footer">
-				<a class="w-25 p-2 float-right text-center border border-success text-success proceed" id="okay" data-dismiss="modal">Close</a>
+				<a class="w-25 p-2 float-right text-center border border-success text-success proceed" id="okay"
+					data-dismiss="modal">Close</a>
 			</div>
 		</div>
 	</div>
 </div>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<?php
+include './footer.html';
+?>
 <script>
 	var flat_no = null;
 	var amount = 0;
@@ -86,23 +84,11 @@ include '_navbar.php';
 	var duesquarts = null;
 	var confirm_text = null;
 
-
-	$(document).ready(function() {
-
-	})
-	$("#menu-toggle").click(function(e) {
-		e.preventDefault();
-		$("#wrapper").toggleClass("toggled");
-	});
-	$('.container-fluid').click(function() {
-		$('#wrapper').removeClass("toggled");
-	});
-
-	$('#abc').click(function() {
+	$('#abc').click(function () {
 		$('#transuc').modal('show');
 	});
 
-	$('#fltbtn').click(function(e) {
+	$('#fltbtn').click(function (e) {
 		var flt = $('#fltno').val();
 		var res = flt.substring(0, 1);
 		if (flt == '') {
@@ -120,9 +106,9 @@ include '_navbar.php';
 					flat_no: flt,
 					get: 'get'
 				},
-				success: function(data) {
-					console.log(data);
-					// alert(data);
+				success: function (data) {
+					// console.log(data);
+					alert(data);
 					var response = JSON.parse(data);
 					// amount = response.qc;
 					// yramount = response.yrly;
@@ -144,7 +130,7 @@ include '_navbar.php';
 		var chequeno = $('#chequeno').val();
 		var cheque_date = $('#cheque_date').val();
 		var bank_name = $('#bank_name').val();
-		var type=$('#duedrop').val(); 
+		var type = $('#duedrop').val();
 		if ($('#duedrop').val() != 'duesn' && $('#noq').val() <= 0) {
 			$.ajax({
 				url: '../backend_files/adminpayresi.inc.php',
@@ -159,7 +145,7 @@ include '_navbar.php';
 					cheque_date: cheque_date,
 					bank_name: bank_name
 				},
-				success: function(data) {
+				success: function (data) {
 					console.log(data);
 				}
 			});
@@ -175,7 +161,7 @@ include '_navbar.php';
 					nquarterpay: 'nquarterpay',
 					amount: amount
 				},
-				success: function(data) {
+				success: function (data) {
 					// console.log(data);
 					console.log(data);
 					var res = JSON.parse(data);
@@ -220,7 +206,7 @@ include '_navbar.php';
 					type: type,
 					flat_no: flat_no
 				},
-				success: function(data) {
+				success: function (data) {
 					amount = data;
 					$('#vachi0').val(data);
 				}
@@ -237,7 +223,7 @@ include '_navbar.php';
 						noq: noq,
 						flat_no: flat_no
 					},
-					success: function(data) {
+					success: function (data) {
 						amount = data;
 						$('#vachi0').val(data);
 					}
@@ -268,13 +254,10 @@ include '_navbar.php';
 				cheque_date: cheque_date,
 				bank_name: bank_name
 			},
-			success: function(data) {
+			success: function (data) {
 				$('#show').html('null');
 				$('#confirm').modal('hide');
 			}
 		});
 	}
 </script>
-</body>
-
-</html>

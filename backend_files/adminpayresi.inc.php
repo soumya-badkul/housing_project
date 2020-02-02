@@ -2,7 +2,7 @@
     extract($_POST);
     $conn = mysqli_connect( 'localhost','root',"",'house' );
     if(isset($_POST['get'])){
-        include '../current_quarter.php';
+        include '../frontend_files_php/current_quarter.php';
 
         $sql="SELECT * from due WHERE flat_no='$flat_no'";
         $result=mysqli_query($conn, $sql);
@@ -14,7 +14,7 @@
         $due_date_year=substr($due_date,0,4);
         $days_due=$row['days_due'];
         // $maitenanceperm=330;
-        include '../due_date_quarter.php';
+        include '../frontend_files_php/due_date_quarter.php';
         if($row['status'] == 'pending'){
             $ref = array('due_noti'=> '<h3 class="alert alert-success">Payment Status is Pending. Please Wait for Admin\'s Approval</h3>');
             echo json_encode($ref);
@@ -31,7 +31,7 @@
         else{
             $num_quarters=0;
         }
-        include '../get_all_maintenance.php';
+        include '../frontend_files_php/get_all_maintenance.php';
         include './due_noti_helper.inc.php';
 
         $ref = array('due_noti'=> $due_noti);
@@ -41,7 +41,7 @@
     
     if(isset($_POST['normalpay'])){
     
-        include '../current_quarter.php';
+        include '../frontend_files_php/current_quarter.php';
      
         $sql="SELECT * from due WHERE flat_no='$flat_no'";
         $result=mysqli_query($conn, $sql);
@@ -50,7 +50,7 @@
   
         $due_date=$row['due_date'];
         $due_date_year=substr($due_date,0,4);
-        include '../due_date_quarter.php';
+        include '../frontend_files_php/due_date_quarter.php';
         $due_noti='';
         if($row['isdue']==1){
 
@@ -163,14 +163,14 @@
     }
 
     if(isset($_POST['nquarterpay'])){
-        include '../current_quarter.php';
+        include '../frontend_files_php/current_quarter.php';
         $sql="SELECT * from due WHERE flat_no='$flat_no'";
         $result=mysqli_query($conn, $sql);
         $row=mysqli_fetch_assoc($result);   
 
         $due_date=$row['due_date'];
         $due_date_year=substr($due_date,0,4);
-        include '../due_date_quarter.php';
+        include '../frontend_files_php/due_date_quarter.php';
         $due_noti='';
 
         if($row['isdue']==1){
@@ -291,7 +291,7 @@
 
     if(isset($_POST['getamount'])){
         // echo 'back';
-        include '../current_quarter.php';
+        include '../frontend_files_php/current_quarter.php';
         $sql="SELECT * from due WHERE flat_no='$flat_no'";
         $result=mysqli_query($conn, $sql);
         $row=mysqli_fetch_assoc($result);   
@@ -306,11 +306,11 @@
             else
                 $num_quarters=intdiv($row['days_due'],91)+1;
            
-            include '../get_maintenance.php';
+            include '../frontend_files_php/get_maintenance.php';
         }
         else{
             $num_quarters=0;
-            include '../get_maintenance.php';
+            include '../frontend_files_php/get_maintenance.php';
         }
 
     }

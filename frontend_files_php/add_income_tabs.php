@@ -12,7 +12,7 @@
 <div class="card">
     <div class="card-body">
         <div class="row">
-            <div class="col-md-4 stretch-card pt-3 ">
+            <div class="col-md-6 stretch-card pt-3 ">
                 <div class="card card-icon card-shadow-success text-center">
                     <a href="adminpayresi.php" style="color:#000;">
                         <div class="card-body">
@@ -22,7 +22,7 @@
                     </a>
                 </div>
             </div>
-            <!-- <div class="col-md-4 stretch-card pt-3 ">
+            <div class="col-md-6 stretch-card pt-3 ">
                 <div class="card card-icon card-shadow-success text-center">
                     <a href="rent_intimation.php" style="color:#000;">
                         <div class="card-body">
@@ -31,7 +31,7 @@
                         </div>
                     </a>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </div>
