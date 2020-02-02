@@ -5,7 +5,7 @@ if(isset($_POST['pollquest'])){
     $option1 = $_POST['option1'];
       $option2 = $_POST['option2'];
       $enddate=$_POST['enddate'];
-    $ty="SELECT * FROM opoll WHERE id=1";
+    $ty="SELECT `quest1` FROM opoll";
     $lt=mysqli_query($conn,$ty);
     $me = mysqli_fetch_assoc($lt);
       if($me['quest1']!=NULL){
@@ -37,17 +37,16 @@ if(isset($_POST['viewpoll'])){
         $nes = mysqli_query($conn,$que);  
         $rope = mysqli_fetch_assoc($nes);
         if($rope){
-            $data .="<p class='p-3 text-dark ' align='center'>Your opinion has been recorded. Thankyou !</p>";
+            $data .="<p class='p-3 text-dark ' align='center'>No New Poll Added</p>";
           }
           else{
-       // $data .='<p class="m-3">'.$row['questions'].'</p>';
-       $data.='<p> your opinion</p>';
+        $data .='<p class="m-3">'.$row['questions'].'</p>';
         $data .='<div class="p-3" >
                            <select required class="pollo custom-select mr-sm-2" name="purpose">
                              <option>Select</option>';
 
       if($row['option1'] != ''){
-            $data .='<option value="'.$row['option1'].'">'.$row['option1'].'</option>';
+            $data .='<option value="'.$option1.'">'.$row['option1'].'</option>';
           }
         if($row['option2']!=''){   
               $data .='<option value='.$row['option2'].'>'.$row['option2'].'</option>';
@@ -89,5 +88,12 @@ if(isset($_POST['subpoll'])){
   $data ="";
     $fuery = " UPDATE opoll SET response1='$ans' WHERE flat_no='$flat_no'";
     $res = mysqli_query($conn,$fuery);
+  
+
+    // $ter="SELECT * FROM pollrecord";
+    //   if($row['option1']==$ans){
+    //     count1=+1
+    //   }
+
 
 }

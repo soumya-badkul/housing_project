@@ -10,20 +10,18 @@ if(isset($_POST['readrecord'])){
 
  $data =  '';
 
- $displayquery = "SELECT * FROM society_employee";
+ $displayquery = "SELECT * FROM society_employee ORDER BY `id` DESC";
  $result = mysqli_query($conn,$displayquery);
 
  if(mysqli_num_rows($result) > 0){
-	$data.='<table class="table table-bordered table-striped" id="myTable">
-                <thead class="bg-secondary text-white">
+	$data.='<table class="table table-striped" id="myTable">
+                <thead>
 					<tr>
 						<th>Employee Id</th>
 						<th >Name</th>
 						<th>Type</th>
-						<th>Edit</th>
-						<th>Id Proof</th>
-						<th>Other Doc</th>
-						<th>Remove</th>
+						<th>View</th>
+
 					</tr>
                 </thead>
             <tbody>';
@@ -35,18 +33,27 @@ if(isset($_POST['readrecord'])){
 			 <td class=>'.$row['emp_name'].'</td>
 			 <td class="" >'.$row['emp_type'].'</td>
 			 <td>
-				 <button onclick="getdetails('.$row['emp_id'].')" class="btn btn-block text-info btn-outline-dark" style="border-radius:10px;">Edit</button>
-			 </td>
-			 <td>
-			 <button onclick="idproof(\''.$row['id_proof'].'\')" class="btn btn-block text-dark btn-outline-primary" style="border-radius:10px;">View</button>
-			 </td>
-			 <td>
-			 <button onclick="otherdoc(\''.$row['other_doc'].'\')" class="btn btn-block text-dark btn-outline-primary" style="border-radius:10px;">View</button>
-			 </td>
-			 <td>
-				<button onclick="remove('.$row['emp_id'].')" class="btn btn-block text-dark btn-outline-danger" style="border-radius:10px;">Remove</button>
-			 </td>
-			 </tr>';
+			 <div class="btn-group dropleft">
+			 <button type="button" class="btn btn-outline-primary" data-toggle="dropdown">
+			 <i class="las la-ellipsis-v"></i>Options
+			 </button>
+			 <div class="dropdown-menu bg-light border-dark">
+			 <div>
+				 <button onclick="getdetails('.$row['emp_id'].')" class="btn btn-light btn-block text-dark" style="border-radius:10px;">Edit</button>
+			 </div>
+			 <div>
+			 <button onclick="idproof(\''.$row['id_proof'].'\')" class="btn btn-light btn-block text-dark" style="border-radius:10px;">View id proof</button>
+			 </div>
+			 <div>
+			 <button onclick="otherdoc(\''.$row['other_doc'].'\')" class="btn btn-light btn-block text-dark" style="border-radius:10px;">View other docs</button>
+			 </div>
+			 <div>
+				<button onclick="remove(\''.$row['emp_id'].'\')" class="btn btn-light btn-block text-dark" style="border-radius:10px;">Remove</button>
+			 </div>
+
+			 </div>
+			 </div>
+			 </td>';
 
 	}
 	$data.='</tbody></table>';
@@ -71,7 +78,7 @@ if(isset($_POST['id']) && isset($_POST['id']) != "")
 	 $query = "SELECT * FROM society_employee WHERE emp_id = '$id'";
     //    $query = "SELECT * FROM flat_details WHERE id = '$user_id'";
 	 if (!$result=mysqli_query($conn,$query)) {
-			 exit(mysqli_error());
+			//  exit(mysqli_error());
 	 }
 
 	 $response = array();
