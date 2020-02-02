@@ -1,4 +1,4 @@
-<?php include '../_navbar.php';
+<?php include './_navbar.php';
 error_reporting(E_PARSE & ~E_NOTICE);
 ?>
 <div class="page-header">
