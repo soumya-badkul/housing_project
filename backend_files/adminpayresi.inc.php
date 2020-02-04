@@ -15,11 +15,7 @@
         $days_due=$row['days_due'];
         // $maitenanceperm=330;
         include '../frontend_files_php/due_date_quarter.php';
-        if($row['status'] == 'pending'){
-            $ref = array('due_noti'=> '<h3 class="alert alert-success">Payment Status is Pending. Please Wait for Admin\'s Approval</h3>');
-            echo json_encode($ref);
-            exit();
-        }
+        
         if($row['isdue']==1){
 
             if($due_date_q==4){
@@ -30,6 +26,13 @@
         }
         else{
             $num_quarters=0;
+        }
+
+        if(substr($flat_no,0,1)=='S'){
+            $usertype='shop';
+        }
+        else{
+            $usertype='resident';
         }
         include '../frontend_files_php/get_all_maintenance.php';
         include './due_noti_helper.inc.php';
@@ -145,13 +148,13 @@
             echo $type;
         }
         if($modeofpayment=='cash'){
-            $sql="INSERT INTO admin_accounts (flat_no,purpose,duesquarts,paytype,payquarts,amount,mode_of_payment,next_quarter,approved) VALUES('$flat_no','Maintenance','$duesquarts','$type','$payquarts','$amount','cash','$next_quarter','no')";
+            $sql="INSERT INTO admin_accounts (flat_no,duesquarts,paytype,payquarts,amount,mode_of_payment,next_quarter,approved) VALUES('$flat_no','$duesquarts','$type','$payquarts','$amount','cash','$next_quarter','no')";
         }
         else if($modeofpayment=='cheque'){
-            $sql="INSERT INTO admin_accounts (flat_no,purpose,duesquarts,paytype,payquarts,amount,mode_of_payment,next_quarter,approved,chequeno,cheque_date,bank_name) VALUES('$flat_no','Maintenance','$duesquarts','$type','$payquarts','$amount','cheque','$next_quarter','no','$chequeno','$cheque_date','$bank_name')";
+            $sql="INSERT INTO admin_accounts (flat_no,duesquarts,paytype,payquarts,amount,mode_of_payment,next_quarter,approved,chequeno,cheque_date,bank_name) VALUES('$flat_no','$duesquarts','$type','$payquarts','$amount','cheque','$next_quarter','no','$chequeno','$cheque_date','$bank_name')";
         }
         else if($modeofpayment=='online'){
-            $sql="INSERT INTO admin_accounts (flat_no,purpose,duesquarts,paytype,payquarts,amount,mode_of_payment,next_quarter,approved,transaction_id,transaction_date) VALUES('$flat_no','Maintenance','$duesquarts','$type','$payquarts','$amount','online','$next_quarter','no','$transaction_id','$transaction_date')";
+            $sql="INSERT INTO admin_accounts (flat_no,duesquarts,paytype,payquarts,amount,mode_of_payment,next_quarter,approved,transaction_id,transaction_date) VALUES('$flat_no','$duesquarts','$type','$payquarts','$amount','online','$next_quarter','no','$transaction_id','$transaction_date')";
         }
 
         if(mysqli_query($conn,$sql)){
@@ -280,7 +283,15 @@
             $paytype=substr($paytype,-1);
             echo $type;
         }
-        $sql="INSERT INTO admin_accounts (flat_no,duesquarts,purpose,paytype,payquarts,amount,mode_of_payment,next_quarter,approved) VALUES('$flat_no','$duesquarts','Maintenance','$paytype','$payquarts','$amount','cash','$next_quarter','no')";
+        if($modeofpayment=='cash'){
+            $sql="INSERT INTO admin_accounts (flat_no,duesquarts,paytype,payquarts,amount,mode_of_payment,next_quarter,approved) VALUES('$flat_no','$duesquarts','$type','$payquarts','$amount','cash','$next_quarter','no')";
+        }
+        else if($modeofpayment=='cheque'){
+            $sql="INSERT INTO admin_accounts (flat_no,duesquarts,paytype,payquarts,amount,mode_of_payment,next_quarter,approved,chequeno,cheque_date,bank_name) VALUES('$flat_no','$duesquarts','$type','$payquarts','$amount','cheque','$next_quarter','no','$chequeno','$cheque_date','$bank_name')";
+        }
+        else if($modeofpayment=='online'){
+            $sql="INSERT INTO admin_accounts (flat_no,duesquarts,paytype,payquarts,amount,mode_of_payment,next_quarter,approved,transaction_id,transaction_date) VALUES('$flat_no','$duesquarts','$type','$payquarts','$amount','online','$next_quarter','no','$transaction_id','$transaction_date')";
+        }
         if(mysqli_query($conn,$sql)){
             echo 'success';
         }
@@ -298,7 +309,13 @@
         $due_date=$row['due_date'];
         $days_due=$row['days_due'];
         $due_date_year=substr($due_date,0,4);
-        include '../due_date_quarter.php';
+        include '../frontend_files_php/due_date_quarter.php';
+        if(substr($flat_no,0,1)=='S'){
+            $usertype='shop';
+        }
+        else{
+            $usertype='resident';
+        }
         if($row['isdue']==1){
             if($due_date_q==4){
                 $num_quarters=intdiv($row['days_due']+2,91)+1;  

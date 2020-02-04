@@ -17,7 +17,7 @@
                         <a href="add_income_tabs.php" style="color:#0026ff">
                             <div class="card-body">
                                 <img src="../assets/image/wallet.svg" width="48px" class="mt-5" alt="">
-                                <h4 class="mt-4 pb-2">Add Income</h4>
+                                <h4 class="mt-4 pb-2">Add Income Intimations</h4>
                             </div>
                         </a>
                     </div>
@@ -50,7 +50,7 @@
                                     <!-- <p style="color:red;" class="ring-animate float-right mdi mdi-bell "> </p> -->
                                 <!-- Unapproved Transactions</div> -->
                                 <img src="../assets/image/unapprove.svg" width="48px" class="mt-5" alt="">
-                                <h4 class="mt-3 pb-2">UnApproved Intimations</h4>
+                                <h4 class="mt-3 pb-2">Unapproved Intimations</h4>
                             </div>
                         </a>
                     </div>
@@ -79,12 +79,24 @@
                 </div>
                 <div class="col-md-3 stretch-card pt-3 ">
                     <div class="card card-icon text-center">
-                        <a href="fintabs.php" style="color:#ff5e29">
+                        <a href="sendinvoice.php" style="color:#ff5e29">
                             <div class="card-body">
                                 <!-- <div class="alert-pulse-danger text-white ml-auto">Alert</div> -->
                                 <img src="../assets/image/send.svg" width="48px" class="mt-5 pt-1" alt="">
                                 <!-- <img src="../assets/image/invoice.svg" width="48px" class="mt-5 pt-1" alt=""> -->
                                 <h4 class="mt-3 pb-2">Send Invoice</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3 stretch-card pt-3 ">
+                    <div class="card card-icon text-center">
+                        <a href="ledger.php" style="color:#15b33f">
+                            <div class="card-body">
+                                <!-- <div class="alert-pulse-danger text-white ml-auto">Alert</div> -->
+                                <img src="../assets/image/ledger.svg" width="48px" class="mt-5 pt-1" alt="">
+                                <!-- <img src="../assets/image/invoice.svg" width="48px" class="mt-5 pt-1" alt=""> -->
+                                <h4 class="mt-3 pb-2">Income Expense Yearly Ledger</h4>
                             </div>
                         </a>
                     </div>

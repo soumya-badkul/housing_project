@@ -53,12 +53,14 @@ if(isset($_POST['form'])){
     }
     if(mysqli_num_rows($result)>0){
         $row=mysqli_fetch_array($result,MYSQLI_NUM);
-        $data.='<input type="hidden" id="user_flat_no" name="user_flat_no" value="'.$flat_no.'">';     
+        $data.='
+        <p class="h4 mb-3 " style="color:red;">Please upload Forms In PDF format Only.</p>
+        <input type="hidden" id="user_flat_no" name="user_flat_no" value="'.$flat_no.'">';     
         $n=count($row);
         for($i=2; $i<$n; $i++){
             $str=$head[$i];
             $data.='
-          <div class="form-row">
+          <div class="mt-4 form-row">
             <div class="form-group col-8">';
             if($row[$i]){
                 $data.='<p>'.$str.' <span class="text-success">&nbsp;&nbsp;[Submitted]</span>

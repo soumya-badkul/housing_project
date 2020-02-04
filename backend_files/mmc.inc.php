@@ -11,9 +11,12 @@ $conn = mysqli_connect('localhost','root','','house');
     $sqftarea = $_POST['sqftarea'];
     $water = $_POST['water'];
     $electricity = $_POST['elec'];
+    $service = $_POST['servico'];
+    $water_shop = $_POST['water_shop'];
+    $electricity_shop = $_POST['elec_shop'];
+    $service_shop = $_POST['servico_shop'];
     $lift = $_POST['lifto'];
     $security = $_POST['security'];
-    $service = $_POST['servico'];
 
     $te= "SELECT `flat_no`,`flat_dimensions` FROM `flat_details` WHERE 1";
     $res = mysqli_query($conn,$te);
@@ -112,11 +115,11 @@ $conn = mysqli_connect('localhost','root','','house');
                         <td>'.number_format((($ser['shop_dimensions']*$const_cost*(0.25))/1200),2).'</td>
                         <td>'.number_format((($ser['shop_dimensions']*$const_cost*(0.75))/1200),2).'</td>
                         <td>'.number_format((($insurance/12)/$num),2).'</td>
-                        <td>'.number_format((($water/12)/$num),2).'</td>
-                        <td>'.number_format((($electricity/12)/$num),2).'</td>
+                        <td>'.number_format((($water_shop/12)/$num),2).'</td>
+                        <td>'.number_format((($electricity_shop/12)/$num),2).'</td>
                         <td>'.number_format((($lift/12)/$num),2).'</td>
                         <td>'.number_format((($security/12)/$num),2).'</td>
-                        <td>'.number_format((($service/12)/$num),2).'</td>
+                        <td>'.number_format((($service_shop/12)/$num),2).'</td>
                         <td style="background-color:#eee;">
                         '.(number_format(
                             (($ser['shop_dimensions']*$const_cost*(0.25))/1200)+
@@ -143,12 +146,15 @@ if(isset($_POST['apply'])){
   $const_cost = $_POST['construction'];
   $security= $_POST['security'];
   $insurance= $_POST['insu'];
+  $water_shop = $_POST['water_shop'];
+  $electricity_shop = $_POST['elec_shop'];
+  $service_shop = $_POST['servico_shop'];
   $water = $_POST['water'];
   $electricity = $_POST['elec'];
+  $service = $_POST['servico'];
   $lift = $_POST['lifto'];
   $interest = $_POST['interest'];
   $rebate = $_POST['rebate'];
-  $service = $_POST['servico'];
   $apply = $_POST['apply'];
 
 $query = "UPDATE `charges` SET 
@@ -157,10 +163,14 @@ $query = "UPDATE `charges` SET
 `interest`='$interest',
 `rebate`='$rebate',
 `insurance`='$insurance',
-`water_char`='$water',
 `lift_char`='$lift',
+`water_char`='$water',
 `elec_char`='$electricity',
-`serv_char`='$service' WHERE 1";
+`serv_char`='$service',
+`water_shop`='$water_shop',
+`elec_shop`='$electricity_shop',
+`serv_shop`='$service_shop'
+ WHERE 1";
 
   $output = mysqli_query($conn,$query);
   if($output){
@@ -168,4 +178,66 @@ $query = "UPDATE `charges` SET
   }
 }
 
+if(isset($_POST['getmmc'])){
+  
+  $tec= "SELECT * FROM `charges` WHERE 1";
+  $res1 = mysqli_query($conn,$tec);
+           $rop = mysqli_fetch_array($res1);   
+           $data .='
+           <table class="table table-bordered">
+           <tr style="background-color:#e6e6e6;">
+             <td colspan="4" class="font-weight-bold">A. Area Wise Contribution</td>
+           </tr>
+           <tr>
+             <td colspan="2" style="background-color:#f9f9f9;">Construction Costs : </td>
+             <td colspan="2">'.$rop['const_cost'].'</td>
+           </tr>
+           <tr style="background-color:#e6e6e6;">
+             <td colspan="4" class="font-weight-bold">B. Equal Contribution</td>
+           </tr>
+           <tr>
+             <td colspan="2" style="background-color:#f9f9f9;">Interest For Late/Due Payments(Yearly %) : </td>
+             <td colspan="2">'.$rop['interest'].'</td>
+           </tr>
+           <tr>
+             <td colspan="2" style="background-color:#f9f9f9;">Rebate for Early Payments(Yearly %): </td>
+             <td colspan="2">'.$rop['rebate'].'</td>
+           </tr>
+           <tr>
+             <td colspan="2" style="background-color:#f9f9f9;">Annual Building Insurance Amount : </td>
+             <td colspan="2">'.$rop['insurance'].'</td>
+           </tr>
+           <tr>
+             <td colspan="2" style="background-color:#f9f9f9;">Annual Security Charges : </td>
+             <td colspan="2">'.$rop['security'].'</td>
+           </tr>
+           <tr>
+             <td colspan="2" style="background-color:#f9f9f9;">Annual Lift Charges : </td>
+             <td colspan="2">'.$rop['lift_char'].'</td>
+           </tr>
+           <tr style="background-color:#e6e6e6;">
+             <td colspan="2" class="font-weight-bold">Flat Charges</td>
+             <td colspan="2" class="font-weight-bold">Shop Charges</td>
+           </tr>
+           <tr>
+             <td style="background-color:#f9f9f9;">Annual Water Charges : </td>
+             <td>'.$rop['water_char'].'</td>
+             <td style="background-color:#f9f9f9;">Annual Water Charges : </td>
+             <td>'.$rop['water_shop'].'</td>
+             </tr>
+             <tr>
+             <td style="background-color:#f9f9f9;">Annual Electricity Charges : </td>
+             <td>'.$rop['elec_char'].'</td>
+             <td style="background-color:#f9f9f9;">Annual Electricity Charges : </td>
+             <td>'.$rop['elec_shop'].'</td>
+             </tr>
+             <tr>
+             <td style="background-color:#f9f9f9;">Annual Service Charges </td>
+             <td>'.$rop['serv_char'].'</td>
+             <td style="background-color:#f9f9f9;">Annual Service Charges : </td>
+             <td>'.$rop['serv_shop'].'</td>
+           </tr>
+         </table>';
+echo $data;
+                  }
 ?>
